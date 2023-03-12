@@ -14,8 +14,10 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("io.micrometer:micrometer-registry-prometheus")
+	implementation("net.devh:grpc-server-spring-boot-starter:2.6.2")
+//	implementation("ru.tinkoff:common-grpc-interface")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
