@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "ru.tinkoff"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.2-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -14,11 +14,21 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+
 	implementation("io.micrometer:micrometer-registry-prometheus")
-	implementation("net.devh:grpc-server-spring-boot-starter:2.6.2")
-//	implementation("ru.tinkoff:common-grpc-interface")
+
+	implementation("net.devh:grpc-server-spring-boot-starter:2.14.0.RELEASE")
+	implementation("io.grpc:grpc-netty-shaded")
+	implementation(project(":common-grpc-connectivity"))
+
+	implementation("org.projectlombok:lombok:1.18.26")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+springBoot {
+	buildInfo()
 }
 
 tasks.withType<Test> {

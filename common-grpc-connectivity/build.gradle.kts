@@ -5,13 +5,14 @@ extra.apply {
     set("grpcVersion", "1.42.1")
 }
 
+group = "ru.tinkoff"
+version = "0.0.1"
+java.sourceCompatibility = JavaVersion.VERSION_17
+
 plugins {
     id("java-library")
     id("com.google.protobuf") version "0.8.18"
 }
-
-group = "ru.tinkoff"
-version = "0.0.1"
 
 repositories {
     mavenCentral()
@@ -19,6 +20,7 @@ repositories {
 
 dependencies {
     implementation("com.google.protobuf:protobuf-java:${project.extra["protobufVersion"]}")
+    implementation("io.grpc:grpc-netty-shaded:${project.extra["grpcVersion"]}")
     implementation("io.grpc:grpc-protobuf:${project.extra["grpcVersion"]}")
     implementation("io.grpc:grpc-stub:${project.extra["grpcVersion"]}")
     compileOnly("jakarta.annotation:jakarta.annotation-api:1.3.5") // Java 9+ compatibility - Do NOT update to 2.0.0
@@ -27,7 +29,7 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDirs("src/main/java", "build/generated/source/proto/main")
+            srcDirs("src/main/java", "build/generated/source/proto/main/grpc", "build/generated/source/proto/main/java")
         }
     }
 }
@@ -49,8 +51,4 @@ protobuf {
             }
         }
     }
-}
-
-tasks.getByName<Test>("test") {
-    useJUnitPlatform()
 }
