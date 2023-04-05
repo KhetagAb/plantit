@@ -6,7 +6,6 @@ plugins {
 
 group = "ru.tinkoff"
 version = "0.0.2-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
 	mavenCentral()
@@ -19,7 +18,6 @@ dependencies {
 	implementation("io.micrometer:micrometer-registry-prometheus")
 
 	implementation("net.devh:grpc-server-spring-boot-starter:2.14.0.RELEASE")
-	implementation("io.grpc:grpc-netty-shaded")
 	implementation(project(":common-grpc-connectivity"))
 
 	implementation("org.projectlombok:lombok:1.18.26")

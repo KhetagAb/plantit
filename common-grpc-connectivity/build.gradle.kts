@@ -7,7 +7,6 @@ extra.apply {
 
 group = "ru.tinkoff"
 version = "0.0.1"
-java.sourceCompatibility = JavaVersion.VERSION_17
 
 plugins {
     id("java-library")
