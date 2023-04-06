@@ -1,15 +1,17 @@
 package ru.tinkoff.landscapeservice.service;
 
 import com.google.protobuf.Empty;
+import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.landscapeservice.properties.ServicesProperties;
 import ru.tinkoff.proto.StatusServiceGrpc;
 import ru.tinkoff.proto.VersionResponse;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ExploreServicesService {
@@ -19,27 +21,42 @@ public class ExploreServicesService {
     @Autowired
     public ExploreServicesService(ServicesProperties servicesProperties) {
         this.servicesProperties = servicesProperties;
-
     }
 
-    private List<StatusServiceGrpc.StatusServiceBlockingStub> getStatusServiceBlockingStubs(List<String> services) {
-        return services.stream()
-                .map(ManagedChannelBuilder::forTarget)
-                .map(ManagedChannelBuilder::usePlaintext)
-                .map(ManagedChannelBuilder::build)
-                .map(StatusServiceGrpc::newBlockingStub)
-                .collect(Collectors.toList());
+    private List<VersionResponse> getHostsVersions(List<String> hosts) {
+        Empty empty = Empty.newBuilder()
+                .build();
+
+        List<VersionResponse> list = new ArrayList<>();
+        for (String host : hosts) {
+            try {
+                ManagedChannel managedChannel = ManagedChannelBuilder.forTarget(host)
+                        .usePlaintext()
+                        .build();
+                VersionResponse version = StatusServiceGrpc.newBlockingStub(managedChannel)
+                        .getVersion(empty);
+                list.add(version);
+            } catch (StatusRuntimeException e) {
+                System.err.println("Exception during gRPC call to services: " + e.getMessage());
+                // TODO: log error
+            }
+        }
+        return list;
     }
 
+    /**
+     * Explore handyman services from services properties with gRPC call
+     * @return list of versions as proto messages
+     */
     public List<VersionResponse> exploreHandymanVersions() {
-        return getStatusServiceBlockingStubs(servicesProperties.getHandyman()).stream()
-                .map(stub -> stub.getVersion(Empty.newBuilder().build()))
-                .collect(Collectors.toList());
+        return getHostsVersions(servicesProperties.getHandyman());
     }
 
+    /**
+     * Explore rancher services from services properties with gRPC call
+     * @return list of versions as proto messages
+     */
     public List<VersionResponse> exploreRancherVersions() {
-        return getStatusServiceBlockingStubs(servicesProperties.getRancher()).stream()
-                .map(stub -> stub.getVersion(Empty.newBuilder().build()))
-                .collect(Collectors.toList());
+        return getHostsVersions(servicesProperties.getRancher());
     }
 }

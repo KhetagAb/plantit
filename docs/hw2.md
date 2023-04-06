@@ -1,29 +1,39 @@
+# Step 2
+
 ### Description
 
-- В монорепозитории представлены три папки - три сервиса.
+- Another step is to check connectivity between services. gRPC protocol was used. There is [common-grpc-connectivity](../common-grpc-connectivity) module for common usage. In [Landscape](../landscape-service) module there is an additional proto file to define answer for connectivity for all another services. 
+- Landscape service is gRPC client.
+- Handyman and Rancher services are gRPC servers.
 
 ### Project building:
 
-- Убедиться, что установлена системная переменная ```JAVA_HOME``` к OpenJDK 17+.
-- Запустить Spring приложение из корневой папки соотвествующего сервиса [Gradle](../landscape-service/build.gradle.kts):
-  - `./gradlew bootRun` on Linux or MacOS
-  - `gradlew bootRun` on Windows
+- Complete project building from [Step 1](hw1.md)
+- All proto codegen tasks will executed automatically
 
-### Результат
 
-- С помощью запроса получаем информацию из актуатора
-```bash 
-curl -X GET localhost:8080/system/info
-```
+### Result
 
-- Все приложения развернуты на разных портах: 8070, 8080, 8090
-- У каждого из них доступен endpoint метрик и системные
+- Handyman and Rancher services has gRPC servers, so a request is available:
 ```bash 
-curl -X GET localhost:8080/metrics
+grpcurl --plaintext localhost:9070 list
+grpcurl --plaintext localhost:9090 list
 ```
+```bash
+grpcurl --plaintext localhost:9070 list ru.tinkoff.StatusService
+```
+```bash
+grpcurl --plaintext localhost:9070 ru.tinkoff.StatusService.getVersion
+grpcurl --plaintext localhost:9090 ru.tinkoff.StatusService.getVersion
+```
+![](./resources/hw2/1.png)
+
+- Plaintext is used instead of TLS/SSL secure method.
+
+
+- Landscape service has gRPC client, so REST endpoint is available:
 ```bash 
-curl -X GET localhost:8080/system/liveness
+curl -X GET localhost:8080/explore/all
 ```
-```bash 
-curl -X GET localhost:8080/system/readiness
-```
+![](./resources/hw2/2.png)
+![](./resources/hw2/3.png)
