@@ -1,8 +1,8 @@
-# Step 2
+# Step 2 - gRPC connectivity check communication
 
 ### Description
 
-- Another step is to check connectivity between services. gRPC protocol was used. There is [common-grpc-connectivity](../common-grpc-connectivity) module for common usage. In [Landscape](../landscape-service) module there is an additional proto file to define answer for connectivity for all another services. 
+- Another step is to check connectivity between services. gRPC protocol was used. There is [common-grpc-connectivity](../common-grpc-connectivity) module for common usage. In [Landscape](../landscape-service) module there is an additional proto file to define answer for connectivity for all another services.
 - Landscape service is gRPC client.
 - Handyman and Rancher services are gRPC servers.
 
