@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "status_service.proto";
+package ru.tinkoff;
+
+option java_package = "ru.tinkoff.proto";
+option java_multiple_files = true;
+
+message ServicesVersion {
+  HandymanServicesVersion handymanVersions = 1;
+  RancherServicesVersion rancherVersions = 2;
+}
+
+message HandymanServicesVersion {
+  repeated VersionResponse versions = 1;
+}
+
+message RancherServicesVersion {
+  repeated VersionResponse versions = 1;
+}
