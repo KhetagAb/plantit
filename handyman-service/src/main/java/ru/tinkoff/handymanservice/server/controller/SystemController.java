@@ -12,10 +12,14 @@ import ru.tinkoff.handymanservice.server.service.SystemService;
 @RequestMapping("/system")
 public class SystemController {
 
-    @Autowired
-    private SystemService systemService;
-
     private final static String HANDYMAN_SERVICE_STATUS_TEMPLATE = "{ \"HandymanService\": \"%s\" }";
+
+    private final SystemService systemService;
+
+    @Autowired
+    public SystemController(SystemService systemService) {
+        this.systemService = systemService;
+    }
 
     @GetMapping("liveness")
     public ResponseEntity<String> getLiveness() {

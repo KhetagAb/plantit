@@ -16,7 +16,6 @@ public class SystemService {
         this.applicationAvailability = applicationAvailability;
     }
 
-
     /**
      * Indicates the liveness of the application
      * @return liveness probe as enum {@link LivenessState}

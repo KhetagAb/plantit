@@ -13,11 +13,16 @@ import ru.tinkoff.rancherservice.service.SystemService;
 @GrpcService
 public class StatusService extends StatusServiceGrpc.StatusServiceImplBase {
 
-    @Autowired
-    private BuildProperties buildProperties;
+
+    private final BuildProperties buildProperties;
+
+    private final SystemService systemService;
 
     @Autowired
-    private SystemService systemService;
+    public StatusService(BuildProperties buildProperties, SystemService systemService) {
+        this.buildProperties = buildProperties;
+        this.systemService = systemService;
+    }
 
     @Override
     public void getVersion(Empty request, StreamObserver<VersionResponse> responseObserver) {

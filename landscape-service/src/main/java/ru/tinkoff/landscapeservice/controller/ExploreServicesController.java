@@ -3,6 +3,7 @@ package ru.tinkoff.landscapeservice.controller;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.util.JsonFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ public class ExploreServicesController {
 
     private final ExploreServicesService exploreServicesService;
 
+    @Autowired
     public ExploreServicesController(ExploreServicesService exploreServicesService) {
         this.exploreServicesService = exploreServicesService;
     }
