@@ -1,14 +1,14 @@
 package ru.tinkoff.landscapeservice.service;
 
 import com.google.protobuf.Empty;
+import com.google.protobuf.Message;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.landscapeservice.properties.ServicesProperties;
-import ru.tinkoff.proto.StatusServiceGrpc;
-import ru.tinkoff.proto.VersionResponse;
+import ru.tinkoff.proto.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,5 +58,22 @@ public class ExploreServicesService {
      */
     public List<VersionResponse> exploreRancherVersions() {
         return getHostsVersions(servicesProperties.getRancher());
+    }
+
+    /**
+     * Get response from Handyman and Rancher services for versions info
+     * @return message with versions
+     */
+    public Message getAllServicesVersion() {
+        var handymanVersionsBuilder = HandymanServicesVersion.newBuilder()
+                .addAllVersions(exploreHandymanVersions());
+
+        var racherVersionsBuilder = RancherServicesVersion.newBuilder()
+                .addAllVersions(exploreRancherVersions());
+
+        return ServicesVersion.newBuilder()
+                .setHandymanVersions(handymanVersionsBuilder)
+                .setRancherVersions(racherVersionsBuilder)
+                .build();
     }
 }
