@@ -7,22 +7,22 @@ import java.util.List;
 @ConfigurationProperties("services")
 public class ServicesProperties {
 
-    private List<String> handyman;
-    private List<String> rancher;
+    private List<String> handymanUrls;
+    private List<String> rancherUrls;
 
-    public List<String> getHandyman() {
-        return handyman;
+    public List<String> getHandymanUrls() {
+        return handymanUrls;
     }
 
-    public List<String> getRancher() {
-        return rancher;
+    public List<String> getRancherUrls() {
+        return rancherUrls;
     }
 
-    public void setHandyman(List<String> handyman) {
-        this.handyman = handyman;
+    public void setHandymanUrls(List<String> handyman) {
+        this.handymanUrls = handyman;
     }
 
-    public void setRancher(List<String> rancher) {
-        this.rancher = rancher;
+    public void setRancherUrls(List<String> rancher) {
+        this.rancherUrls = rancher;
     }
 }

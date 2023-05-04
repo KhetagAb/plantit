@@ -5,7 +5,6 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
-import org.springframework.http.HttpStatus;
 import ru.tinkoff.proto.ReadinessResponse;
 import ru.tinkoff.proto.StatusServiceGrpc;
 import ru.tinkoff.proto.VersionResponse;
@@ -13,9 +12,6 @@ import ru.tinkoff.rancherservice.service.SystemService;
 
 @GrpcService
 public class StatusService extends StatusServiceGrpc.StatusServiceImplBase {
-
-    private final static String OK = HttpStatus.OK.toString();
-    private final static String TOO_EARLY = HttpStatus.TOO_EARLY.toString();
 
     @Autowired
     private BuildProperties buildProperties;
@@ -39,7 +35,7 @@ public class StatusService extends StatusServiceGrpc.StatusServiceImplBase {
     @Override
     public void getReadiness(Empty request, StreamObserver<ReadinessResponse> responseObserver) {
         var readinessResponse = ReadinessResponse.newBuilder()
-                .setStatus(systemService.getReadiness() ? OK : TOO_EARLY)
+                .setStatus(systemService.getReadiness().toString())
                 .build();
 
         responseObserver.onNext(readinessResponse);

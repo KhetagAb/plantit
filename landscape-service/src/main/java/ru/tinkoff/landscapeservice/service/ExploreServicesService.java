@@ -1,7 +1,6 @@
 package ru.tinkoff.landscapeservice.service;
 
 import com.google.protobuf.Empty;
-import com.google.protobuf.Message;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
@@ -49,7 +48,7 @@ public class ExploreServicesService {
      * @return list of versions as proto messages
      */
     public List<VersionResponse> exploreHandymanVersions() {
-        return getHostsVersions(servicesProperties.getHandyman());
+        return getHostsVersions(servicesProperties.getHandymanUrls());
     }
 
     /**
@@ -57,14 +56,14 @@ public class ExploreServicesService {
      * @return list of versions as proto messages
      */
     public List<VersionResponse> exploreRancherVersions() {
-        return getHostsVersions(servicesProperties.getRancher());
+        return getHostsVersions(servicesProperties.getRancherUrls());
     }
 
     /**
      * Get response from Handyman and Rancher services for versions info
      * @return message with versions
      */
-    public Message getAllServicesVersion() {
+    public ServicesVersion getAllServicesVersion() {
         var handymanVersionsBuilder = HandymanServicesVersion.newBuilder()
                 .addAllVersions(exploreHandymanVersions());
 

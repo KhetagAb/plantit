@@ -13,21 +13,19 @@ import ru.tinkoff.handymanservice.server.service.SystemService;
 public class SystemController {
 
     @Autowired
-    private SystemService service;
+    private SystemService systemService;
 
     private final static String HANDYMAN_SERVICE_STATUS_TEMPLATE = "{ \"HandymanService\": \"%s\" }";
 
     @GetMapping("liveness")
-    public ResponseEntity<Void> getLiveness() {
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<String> getLiveness() {
+        String status = HANDYMAN_SERVICE_STATUS_TEMPLATE.formatted(systemService.getLiveness());
+        return new ResponseEntity<>(status, HttpStatus.OK);
     }
 
     @GetMapping("readiness")
     public ResponseEntity<String> getReadiness() {
-        HttpStatus httpStatus = service.getReadiness() ? HttpStatus.OK : HttpStatus.TOO_EARLY;
-        return new ResponseEntity<>(
-                HANDYMAN_SERVICE_STATUS_TEMPLATE.formatted(httpStatus.getReasonPhrase()),
-                httpStatus
-        );
+        String status = HANDYMAN_SERVICE_STATUS_TEMPLATE.formatted(systemService.getReadiness());
+        return new ResponseEntity<>(status, HttpStatus.OK);
     }
 }

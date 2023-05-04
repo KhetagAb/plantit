@@ -1,4 +1,4 @@
-package ru.tinkoff.handymanservice.server.service;
+package ru.tinkoff.landscapeservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.availability.ApplicationAvailability;
