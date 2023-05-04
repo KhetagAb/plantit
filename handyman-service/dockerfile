@@ -11,12 +11,12 @@ WORKDIR /plantit/gradle/handyman-service
 RUN gradle build
 
 
-FROM openjdk:jdk19
+FROM openjdk:19
 
 WORKDIR /plantit/app
 
 COPY --from=BUILD_IMAGE /plantit/gradle/handyman-service/build/libs/handyman-service-0.0.2-SNAPSHOT.jar .
 
-EXPOSE 8080
+EXPOSE 8070 # TODO fix port and artifact jar
 
 CMD ["java","-jar","handyman-service-0.0.2-SNAPSHOT.jar"]
