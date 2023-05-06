@@ -31,8 +31,6 @@ dependencies {
     implementation(project(":common-grpc-connectivity"))
     implementation("com.google.protobuf:protobuf-java-util:3.22.2")
 
-    implementation("org.projectlombok:lombok:1.18.26")
-
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

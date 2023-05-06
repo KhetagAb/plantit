@@ -20,8 +20,6 @@ dependencies {
 	implementation("net.devh:grpc-server-spring-boot-starter:2.14.0.RELEASE")
 	implementation(project(":common-grpc-connectivity"))
 
-	implementation("org.projectlombok:lombok:1.18.26")
-
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
