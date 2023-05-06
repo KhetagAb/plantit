@@ -21,4 +21,7 @@ The shared library [common-grpc-connectivity](../common-grpc-connectivity) is us
 
 - Checking port-forwarding for all containers with Postman testing:
 ![](../docs/resources/hw3/3.png)
-![](../docs/resources/hw3/4.png) 
+![](../docs/resources/hw3/4.png)
+
+- Running all containers with docker-compose:
+![](../docs/resources/hw3/5.png)

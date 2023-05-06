@@ -59,3 +59,8 @@ docker run \
   --name rancher-service \
   rancher-service
 ```
+
+### Docker compose command
+```bash
+docker-compose up -d
+```
