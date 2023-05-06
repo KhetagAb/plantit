@@ -2,12 +2,23 @@
 
 ### Description
 
+Each of the projects can be packed with docker image, and then run as Docker container.
+The shared library [common-grpc-connectivity](../common-grpc-connectivity) is used.
 
 
-### Project building:
+### Building docker images:
 
-- Complete project building from [Step 1](hw1.md)
-
+- Use dev [README.md](../dev/README.md)
 
 
 ### Result
+
+- Building docker image:
+![](../docs/resources/hw3/1.png)
+
+- Running container:
+![](../docs/resources/hw3/2.png)
+
+- Checking port-forwarding for all containers with Postman testing:
+![](../docs/resources/hw3/3.png)
+![](../docs/resources/hw3/4.png) 

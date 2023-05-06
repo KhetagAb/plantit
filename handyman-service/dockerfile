@@ -14,11 +14,11 @@ FROM openjdk:19
 
 ENV APP_HOME /plantit/app
 ARG APP_VERSION="SNAPSHOT"
-ARG APP_PORT=8070
+ARG APP_PORTS="8070 9070"
 
 WORKDIR $APP_HOME
 
 COPY --from=BUILD_IMAGE /plantit/gradle/handyman-service/build/libs/handyman-service-$APP_VERSION.jar app.jar
-EXPOSE $APP_PORT
+EXPOSE $APP_PORTS
 
 CMD ["java","-jar","app.jar"]

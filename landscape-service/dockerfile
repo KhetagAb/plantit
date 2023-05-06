@@ -14,11 +14,11 @@ FROM openjdk:19
 
 ENV APP_HOME /plantit/app
 ARG APP_VERSION="SNAPSHOT"
-ARG APP_PORT=8080
+ARG APP_PORTS=8080
 
 WORKDIR $APP_HOME
 
 COPY --from=BUILD_IMAGE /plantit/gradle/landscape-service/build/libs/landscape-service-$APP_VERSION.jar app.jar
-EXPOSE $APP_PORT
+EXPOSE $APP_PORTS
 
 CMD ["java","-jar","app.jar"]
