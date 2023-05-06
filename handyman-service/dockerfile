@@ -2,9 +2,8 @@ FROM gradle:jdk19 as BUILD_IMAGE
 
 WORKDIR /plantit/gradle
 
+ COPY ./common-grpc-connectivity ./common-grpc-connectivity
 COPY ./handyman-service ./handyman-service
-
-COPY ./common-grpc-connectivity ./common-grpc-connectivity
 
 WORKDIR /plantit/gradle/handyman-service
 
@@ -13,10 +12,13 @@ RUN gradle build
 
 FROM openjdk:19
 
-WORKDIR /plantit/app
+ENV APP_HOME /plantit/app
+ARG APP_VERSION="SNAPSHOT"
+ARG APP_PORT=8070
 
-COPY --from=BUILD_IMAGE /plantit/gradle/handyman-service/build/libs/handyman-service-0.0.2-SNAPSHOT.jar .
+WORKDIR $APP_HOME
 
-EXPOSE 8070 # TODO fix port and artifact jar
+COPY --from=BUILD_IMAGE /plantit/gradle/handyman-service/build/libs/handyman-service-$APP_VERSION.jar app.jar
+EXPOSE $APP_PORT
 
-CMD ["java","-jar","handyman-service-0.0.2-SNAPSHOT.jar"]
+CMD ["java","-jar","app.jar"]
