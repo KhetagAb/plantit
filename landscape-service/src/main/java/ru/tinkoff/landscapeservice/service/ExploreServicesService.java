@@ -7,8 +7,7 @@ import io.grpc.StatusRuntimeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.tinkoff.landscapeservice.properties.ServicesProperties;
-import ru.tinkoff.proto.StatusServiceGrpc;
-import ru.tinkoff.proto.VersionResponse;
+import ru.tinkoff.proto.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class ExploreServicesService {
      * @return list of versions as proto messages
      */
     public List<VersionResponse> exploreHandymanVersions() {
-        return getHostsVersions(servicesProperties.getHandyman());
+        return getHostsVersions(servicesProperties.getHandymanUrls());
     }
 
     /**
@@ -57,6 +56,23 @@ public class ExploreServicesService {
      * @return list of versions as proto messages
      */
     public List<VersionResponse> exploreRancherVersions() {
-        return getHostsVersions(servicesProperties.getRancher());
+        return getHostsVersions(servicesProperties.getRancherUrls());
+    }
+
+    /**
+     * Get response from Handyman and Rancher services for versions info
+     * @return message with versions
+     */
+    public ServicesVersion getAllServicesVersion() {
+        var handymanVersionsBuilder = HandymanServicesVersion.newBuilder()
+                .addAllVersions(exploreHandymanVersions());
+
+        var racherVersionsBuilder = RancherServicesVersion.newBuilder()
+                .addAllVersions(exploreRancherVersions());
+
+        return ServicesVersion.newBuilder()
+                .setHandymanVersions(handymanVersionsBuilder)
+                .setRancherVersions(racherVersionsBuilder)
+                .build();
     }
 }

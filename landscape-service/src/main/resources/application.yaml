@@ -1,6 +1,5 @@
 services:
-  handyman:
+  handymanUrls:
     - localhost:9070
-  rancher:
+  rancherUrls:
     - localhost:9090
-# TODO link with docker containers
