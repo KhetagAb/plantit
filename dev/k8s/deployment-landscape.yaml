@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: landscape
+  name: landscape
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: landscape
+  template:
+    metadata:
+      labels:
+        app: landscape
+    spec:
+      containers:
+        - image: landscape-service:latest
+          imagePullPolicy: IfNotPresent
+          name: landscape-service
