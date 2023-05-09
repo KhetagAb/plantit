@@ -1,0 +1,5 @@
+services:
+  handymanUrls:
+    - localhost:9070
+  rancherUrls:
+    - localhost:9090

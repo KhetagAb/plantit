@@ -1,23 +1,26 @@
+# Step 1
+
 ### Description
 
-- В монорепозитории представлены три папки - три сервиса.
+- There are three directories in monorepository - three services.
 
 ### Project building:
 
-- Убедиться, что установлена системная переменная ```JAVA_HOME``` к OpenJDK 17+.
-- Запустить Spring приложение из корневой папки соотвествующего сервиса [Gradle](../landscape-service/build.gradle.kts):
-  - `./gradlew bootRun` on Linux or MacOS
-  - `gradlew bootRun` on Windows
+- Be sure, that ```JAVA_HOME`` for  OpenJDK 19+ variable is set.
+- Run SpringBoot application from root directory **for each** service [Gradle](../landscape-service/build.gradle.kts):
+  - `./gradlew clean bootRun` on Linux or MacOS
+  - `gradlew clean bootRun` on Windows
 
-### Результат
 
-- С помощью запроса получаем информацию из актуатора
+### Result
+
+- Send check request for actuator
 ```bash 
 curl -X GET localhost:8080/system/info
 ```
 
-- Все приложения развернуты на разных портах: 8070, 8080, 8090
-- У каждого из них доступен endpoint метрик и системные
+- Application's ports are: 8070, 8080, 8090
+- Each of it has few endpoints for metrics, liveness and readiness
 ```bash 
 curl -X GET localhost:8080/metrics
 ```
