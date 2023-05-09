@@ -1,0 +1,24 @@
+FROM gradle:jdk19 as BUILD_IMAGE
+
+WORKDIR /plantit/gradle
+
+COPY ./common-grpc-connectivity ./common-grpc-connectivity
+COPY ./landscape-service ./landscape-service
+
+WORKDIR /plantit/gradle/landscape-service
+
+RUN gradle build
+
+
+FROM openjdk:19
+
+ENV APP_HOME /plantit/app
+ARG APP_VERSION="SNAPSHOT"
+ARG APP_PORTS=8080
+
+WORKDIR $APP_HOME
+
+COPY --from=BUILD_IMAGE /plantit/gradle/landscape-service/build/libs/landscape-service-$APP_VERSION.jar app.jar
+EXPOSE $APP_PORTS
+
+CMD ["java","-jar","app.jar"]

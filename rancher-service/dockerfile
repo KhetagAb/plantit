@@ -1,0 +1,24 @@
+FROM gradle:jdk19 as BUILD_IMAGE
+
+WORKDIR /plantit/gradle
+
+COPY ./common-grpc-connectivity ./common-grpc-connectivity
+COPY ./rancher-service ./rancher-service
+
+WORKDIR /plantit/gradle/rancher-service
+
+RUN gradle build
+
+
+FROM openjdk:19
+
+ENV APP_HOME /plantit/app
+ARG APP_VERSION="SNAPSHOT"
+ARG APP_PORTS="8090 9090"
+
+WORKDIR $APP_HOME
+
+COPY --from=BUILD_IMAGE /plantit/gradle/rancher-service/build/libs/rancher-service-$APP_VERSION.jar app.jar
+EXPOSE $APP_PORTS
+
+CMD ["java","-jar","app.jar"]
