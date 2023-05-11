@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: handyman
+  name: handyman
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: handyman
+  template:
+    metadata:
+      labels:
+        app: handyman
+    spec:
+      containers:
+        - image: handyman-service:latest
+          imagePullPolicy: IfNotPresent
+          name: handyman-service

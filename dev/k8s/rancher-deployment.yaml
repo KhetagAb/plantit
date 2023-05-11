@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rancher
+  name: rancher
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: rancher
+  template:
+    metadata:
+      labels:
+        app: rancher
+    spec:
+      containers:
+        - image: rancher-service:latest
+          imagePullPolicy: IfNotPresent
+          name: rancher-service
