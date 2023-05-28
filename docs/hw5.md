@@ -12,11 +12,14 @@ For migration [liquibase](https://www.liquibase.org) framework is used.
 
 ### Project building:
 
+- [Download dummies file](https://drive.google.com/file/d/16ysrOksARNGwpeQ6_O-4HhJj-4iz8ecg/view?usp=sharing
+  ) for database before docker image build and place it [here](../landscape-service/src/main/resources/db/dummy/lfs) (replace if needed)
 - Use dev [README.md](../dev/README.md) **ONLY** to build docker images.
 - Use k8s [README.md](../dev/k8s/README.md) to set up cluster and create PostreSQL persistence storage (also build docker containers!).
-- Pay attention to [Service](../dev/k8s/postgres-service.yaml), that expose PostgreSQL at 30400 port to localhost (where k8s is started).
-  - There are [dnsutils pod](../dev/k8s/admin/dns/dnsutils.yaml) to look up DNS in the cluster.
-
-https://drive.google.com/file/d/16ysrOksARNGwpeQ6_O-4HhJj-4iz8ecg/view?usp=sharing
+  - Pay attention to [Service](../dev/k8s/postgres-service.yaml), that expose PostgreSQL as headless service.
+    - There are [dnsutils pod](../dev/k8s/admin/dns/dnsutils.yaml) to look up DNS in the cluster.
+- Connect to database to see result
 ### Result
+- Table is created as migration, client_type column in the table is migrated.
+- Video is attached
 
