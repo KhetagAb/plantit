@@ -1,4 +1,4 @@
-# Step 4 - Database via Kubernetes
+# Step 4 - Persistence storage via Kubernetes
 
 ### Description
 
@@ -12,10 +12,6 @@
 - Use k8s [README.md](../dev/k8s/README.md)
 
 ### Result
-
-- Start:
-
-![](../docs/resources/hw4/video.mp4)
 
 - Kubernetes workload:
 

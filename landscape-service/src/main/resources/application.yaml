@@ -4,3 +4,12 @@ services:
   rancher:
     - localhost:9090
 # TODO link with docker containers
+
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres-0.postgresql.default.svc.cluster.local:5432/postgres
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: db/db.changelog-master.yaml
