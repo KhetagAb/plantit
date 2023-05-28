@@ -6,4 +6,9 @@ databaseChangeLog:
   - include:
       file: db/changelog/feature-5-0001-create-clients-table.sql
   - include:
-      file: db/changelog/feature-5-0002-create-client-type-table.sql
+      file: db/dummy/lfs/dummy_clients.sql
+  - changeSet:
+      id: migrate-client-type-enum-to-table
+      author: kdzestelov
+      sqlFile:
+        path: classpath:db/changelog/feature-5-0002-migrate-client-type-to-table.sql
