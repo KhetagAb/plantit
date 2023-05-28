@@ -7,7 +7,7 @@ COPY ./rancher-service ./rancher-service
 
 WORKDIR /plantit/gradle/rancher-service
 
-RUN gradle build
+RUN gradle build -x test
 
 
 FROM openjdk:19

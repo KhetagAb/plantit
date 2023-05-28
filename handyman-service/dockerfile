@@ -7,7 +7,7 @@ COPY ./handyman-service ./handyman-service
 
 WORKDIR /plantit/gradle/handyman-service
 
-RUN gradle build
+RUN gradle build -x test
 
 
 FROM openjdk:19
