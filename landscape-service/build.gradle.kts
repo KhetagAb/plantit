@@ -31,6 +31,10 @@ dependencies {
     implementation(project(":common-grpc-connectivity"))
     implementation("com.google.protobuf:protobuf-java-util:3.22.2")
 
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation("org.liquibase:liquibase-core:4.20.0")
+    runtimeOnly("org.postgresql:postgresql")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
